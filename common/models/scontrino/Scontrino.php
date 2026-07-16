@@ -15,14 +15,14 @@ use Yii;
  * @property float|null $total_amount
  * @property string|null $currency
  *
- * @property Azienda $merchant
+ * @property Azienda $azienda
  * @property Riga[] $scontrinoRigas
  */
 class Scontrino extends \yii\db\ActiveRecord
 {
 
-    public $merchant;
-    public $items;
+    public $merchant_data;
+    public $items_data;
 
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class Scontrino extends \yii\db\ActiveRecord
         return [
             [['receipt_id', 'merchant_id', 'issued_at', 'cash_register_serial', 'total_amount', 'currency'], 'default', 'value' => null],
             [['merchant_id'], 'integer'],
-            [['issued_at', 'merchant', 'items'], 'safe'],
+            [['issued_at', 'merchant_data', 'items_data'], 'safe'],
             [['total_amount'], 'number'],
             [['receipt_id'], 'string', 'max' => 36],
             [['cash_register_serial'], 'string', 'max' => 64],
@@ -66,7 +66,7 @@ class Scontrino extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Merchant]].
+     * Gets query for [[Azienda]].
      *
      * @return \yii\db\ActiveQuery
      */
@@ -80,9 +80,13 @@ class Scontrino extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getScontrinoRigas()
+    public function getItems()
     {
         return $this->hasMany(Riga::class, ['documento_id' => 'id']);
     }
 
+    public function extraFields()
+    {
+        return ['items', 'merchant'];
+    }
 }

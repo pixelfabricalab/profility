@@ -61,6 +61,12 @@ class Azienda extends \yii\db\ActiveRecord
         return $this->hasMany(Scontrino::class, ['merchant_id' => 'id']);
     }
 
+    /**
+     * Get Azienda by VAT number.
+     *
+     * @param string $vat_number
+     * @return Azienda|null
+     */
     public static function getAziendaByVatNumber($vat_number)
     {
         return self::findOne(['vat_number' => $vat_number]);

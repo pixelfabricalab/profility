@@ -40,22 +40,27 @@ class CreateAction extends BaseCreateAction
         $model = new $this->modelClass([
             'scenario' => $this->scenario,
         ]);
-
-        $model->load(Yii::$app->getRequest()->getBodyParams(), '');
+        
+        $bodyParams = Yii::$app->getRequest()->getBodyParams();
+        $model->load($bodyParams, '');
+        
 
         // Issued at
         $model->issued_at = date('Y-m-d H:i:s');
 
+        $model->merchant_data = $bodyParams['merchant'] ?? null;
+        $model->items_data = $bodyParams['items'] ?? null;
+
         // get the company data
-        if (isset($model->merchant) && $model->merchant['vat_number']) {
-            $azienda = Azienda::getAziendaByVatNumber($model->merchant['vat_number']);
+        if (isset($model->merchant_data) && $model->merchant_data['vat_number']) {
+            $azienda = Azienda::getAziendaByVatNumber($model->merchant_data['vat_number']);
             if ($azienda) {
                 $model->merchant_id = $azienda->id;
             } else {
                 $azienda = new Azienda();
-                $azienda->name = $model->merchant['name'] ?? null;
-                $azienda->vat_number = $model->merchant['vat_number'];
-                $azienda->address = $model->merchant['address'] ?? null;
+                $azienda->name = $model->merchant_data['name'] ?? null;
+                $azienda->vat_number = $model->merchant_data['vat_number'];
+                $azienda->address = $model->merchant_data['address'] ?? null;
                 if ($azienda->save()) {
                     $model->merchant_id = $azienda->id;
                 } else {
@@ -83,8 +88,8 @@ class CreateAction extends BaseCreateAction
     private function handleItems($model)
     {
         // Handle items
-        if (isset($model->items) && is_array($model->items)) {
-            foreach ($model->items as $itemData) {
+        if (isset($model->items_data) && is_array($model->items_data)) {
+            foreach ($model->items_data as $itemData) {
                 $item = new \common\models\scontrino\Riga();
                 $item->load($itemData, '');
                 $item->documento_id = $model->id;
