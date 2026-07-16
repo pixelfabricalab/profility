@@ -7,7 +7,7 @@ use yii\filters\VerbFilter;
 
 class ScontrinoController extends ActiveController
 {
-    public $modelClass = 'common\models\Scontrino';
+    public $modelClass = 'common\models\scontrino\Scontrino';
 
     public function behaviors()
     {
@@ -17,17 +17,33 @@ class ScontrinoController extends ActiveController
             'class' => HttpBearerAuth::class,
         ];
 
+        /*
         $behaviors['verbs'] = [
             'class' => VerbFilter::class,
             'actions' => [
                 'index'  => ['GET', 'HEAD'],
                 'view'   => ['GET', 'HEAD'],
-                'create' => [],
+                'create' => ['POST'],
                 'update' => [],
                 'delete' => [],
             ],
         ];
+        */
 
         return $behaviors;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function actions()
+    {
+        $actions = parent::actions();
+        
+        $createAction = $actions['create'];
+        $createAction['class'] = 'frontend\controllers\rest\CreateAction';
+        $actions['create'] = $createAction;
+
+        return $actions;
     }
 }
