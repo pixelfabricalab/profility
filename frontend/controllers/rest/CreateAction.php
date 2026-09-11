@@ -52,7 +52,7 @@ class CreateAction extends BaseCreateAction
         $model->items_data = $bodyParams['items'] ?? null;
 
         // get the company data
-        if (isset($model->merchant_data) && $model->merchant_data['vat_number']) {
+        if (isset($model->merchant_data) && isset($model->merchant_data['vat_number']) && $model->merchant_data['vat_number']) {
             $azienda = Azienda::getAziendaByVatNumber($model->merchant_data['vat_number']);
             if ($azienda) {
                 $model->merchant_id = $azienda->id;
