@@ -23,4 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <?php if ($model->informazioni) : ?>
+        <h3>Informazioni elaborate</h3>
+        <?php foreach ($model->informazioni as $info) : ?>
+            <p>Receipt ID: <?= Html::encode($info->receipt_id) ?></p>
+            <p>RT: <?= Html::encode($info->cash_register_serial) ?></p>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
 </div>

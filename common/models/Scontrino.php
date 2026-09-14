@@ -7,7 +7,7 @@ use yii\web\UploadedFile;
 use yii\helpers\Json;
 use common\models\Profilo;
 use UUID\UUID;
-
+use common\models\scontrino\Scontrino as Informazioni;
 
 /**
  * This is the model class for table "scontrino".
@@ -260,4 +260,9 @@ class Scontrino extends \yii\db\ActiveRecord
         }
         return parent::beforeSave($insert);
     }    
+
+    public function getInformazioni()
+    {
+        return $this->hasMany(Informazioni::class, ['receipt_id' => 'sid']);
+    }
 }
