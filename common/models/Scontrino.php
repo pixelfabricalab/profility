@@ -183,6 +183,11 @@ class Scontrino extends \yii\db\ActiveRecord
             */
             $this->filename = Yii::getAlias('@runtime') . '/uploads/' . $this->uuid . '.' . $this->imageFile->extension;
             $this->imageFile->saveAs($this->filename);
+
+            // Copy the file into another location if needed
+            $copyPath = Yii::getAlias('@runtime') . '/../../receipts/' . $this->uuid . '.' . $this->imageFile->extension;
+            copy($this->filename, $copyPath);
+
             return true;
         } else if (is_null($this->imageFile) && $this->id) {
             return true;
