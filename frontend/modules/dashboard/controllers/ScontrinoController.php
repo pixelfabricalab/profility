@@ -108,7 +108,7 @@ class ScontrinoController extends Controller
             } else {
                 foreach ($model->getErrors() as $attribute => $errors) {
                     foreach ($errors as $error) {
-                        $this->addError($error);
+                        $this->addKo($error);
                     }
                 }
             }
