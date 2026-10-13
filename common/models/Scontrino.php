@@ -44,7 +44,7 @@ class Scontrino extends \yii\db\ActiveRecord
             [['content', 'filename', 'totale', 'ragione_sociale', 'partita_iva', 'indirizzo', 'data_doc', 'ora_doc'], 'string'],
             [['creato_il', 'modificato_il'], 'safe'],
             [['profilo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Profilo::class, 'targetAttribute' => ['profilo_id' => 'id']],
-            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
+            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, gif, pdf,heic, heif', 'maxSize' => 1024 * 1024 * 10], // 10MB
         ];
     }
 
