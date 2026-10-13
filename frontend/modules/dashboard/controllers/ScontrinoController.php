@@ -105,6 +105,12 @@ class ScontrinoController extends Controller
             if ($model->upload() && $model->save(false)) {
                 $this->addOk('Scontrino caricato con successo.');
                 return $this->redirect(['index', 'id' => $model->id]);
+            } else {
+                foreach ($model->getErrors() as $attribute => $errors) {
+                    foreach ($errors as $error) {
+                        $this->addError($error);
+                    }
+                }
             }
         } else {
             $model->loadDefaultValues();
