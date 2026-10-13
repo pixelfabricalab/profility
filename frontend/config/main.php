@@ -17,6 +17,9 @@ return [
         'dashboard' => [
             'class' => 'frontend\modules\dashboard\Module',
         ],
+        'api' => [
+            'class' => 'frontend\modules\api\Module',
+        ],
     ],
     'components' => [
         'request' => [
