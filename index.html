@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="it-IT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profility — Prossimamente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --ic-primary: #dedc00;
+            --ic-primary-hover: #b8ba00;
+            --ic-dark-blue: #1e2246;
+            --ic-hero-bg: #1e2246;
+            --ic-footer-bg: #1e2246;
+            --ic-blue-light: #0886b4;
+            --ic-gray-light: #f8f9fa;
+            --ic-gray-medium: #6c757d;
+            --ic-border: #e9ecef;
+            --ic-font: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --ic-radius-btn: 4px;
+            --ic-radius-card: 16px;
+            --ic-shadow-card: 0 4px 16px rgba(0,0,0,.07);
+            --ic-shadow-nav: 0 2px 8px rgba(30,34,70,.07);
+            --ic-container: 1200px;
+            --ic-blocco-intro: 650px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--ic-font);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .construction-container {
+            width: 100%;
+            max-width: 800px;
+            padding: 2rem;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            margin-bottom: 2rem;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        .logo img {
+            max-width: 240px;
+            height: auto;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .construction-icon {
+            font-size: 4rem;
+            margin: 2rem 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--ic-dark-blue);
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+            animation: slideUp 0.7s ease-out 0.2s both;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--ic-dark-blue);
+            animation: slideUp 0.7s ease-out 0.3s both;
+        }
+
+        .description {
+            font-size: 1rem;
+            color: var(--ic-dark-blue);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            animation: slideUp 0.7s ease-out 0.4s both;
+        }
+
+        .cta-section {
+            animation: slideUp 0.7s ease-out 0.5s both;
+        }
+
+        .btn-primary {
+            background-color: var(--ic-primary);
+            border: none;
+            padding: 0.75rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: var(--ic-radius-btn);
+            transition: all 0.3s ease;
+            box-shadow: var(--ic-shadow-card);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--ic-primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(214, 14, 100, 0.4);
+            color: white;
+        }
+
+        .btn-outline-light {
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            color: white;
+            padding: 0.75rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-left: 1rem;
+            border-radius: var(--ic-radius-btn);
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-light:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: white;
+            color: white;
+        }
+
+.social-links {
+            margin-top: 3rem;
+            animation: slideUp 0.7s ease-out 0.7s both;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            line-height: 46px;
+            text-align: center;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--ic-primary);
+            border-color: var(--ic-primary);
+            transform: translateY(-3px);
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--ic-primary);
+            top: -100px;
+            right: -100px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--ic-blue-light);
+            bottom: -50px;
+            left: 10%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            background: var(--ic-primary);
+            top: 50%;
+            left: 5%;
+            animation: float 7s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(30px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .construction-icon {
+                font-size: 3rem;
+            }
+
+            .btn-outline-light {
+                margin-left: 0;
+                margin-top: 0.5rem;
+                display: block;
+                width: 100%;
+            }
+
+            .countdown-tiles {
+                gap: 0.5rem;
+            }
+
+            .countdown-tile {
+                min-width: 60px;
+                padding: 0.75rem;
+            }
+
+            .countdown-number {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <div class="construction-container">
+        <div class="logo">
+            <img src="/common/assets/logo.png" alt="Profility logo">
+        </div>
+
+        <h1>Under Construction</h1>
+        <p class="subtitle">Profility si sta preparando</p>
+
+        <p class="description">
+            Stiamo costruendo qualcosa di straordinario per trasformare il modo in cui le aziende prendono decisioni.
+            Il futuro della profilazione cliente e dell'intelligenza dei dati si sta lanciando molto presto.
+        </p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
