@@ -19,6 +19,9 @@ data/*
 /yii_test
 /yii_test.bat
 
+# dir con assets
+common/assets/
+
 # phpstorm project files
 .idea
 
