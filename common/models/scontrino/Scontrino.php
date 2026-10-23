@@ -3,6 +3,7 @@
 namespace common\models\scontrino;
 
 use Yii;
+use common\models\Scontrino as ScontrinoCaricato;
 
 /**
  * This is the model class for table "scontrino_info".
@@ -88,5 +89,20 @@ class Scontrino extends \yii\db\ActiveRecord
     public function extraFields()
     {
         return ['items', 'merchant'];
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            // Perform actions here, e.g., set timestamps or modify attributes
+            if ($insert) {
+                $scontrino_caricato = ScontrinoCaricato::findOne([
+                    'sid' => $this->receipt_id,
+                ]);
+                $this->consumatore_id = $scontrino_caricato->profilo_id;
+            }
+            return true;
+        }
+        return false;
     }
 }
