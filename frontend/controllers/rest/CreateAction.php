@@ -43,13 +43,18 @@ class CreateAction extends BaseCreateAction
         
         $bodyParams = Yii::$app->getRequest()->getBodyParams();
         $model->load($bodyParams, '');
-        
 
         // Issued at
         $model->issued_at = $bodyParams['issued_at'] ?? null;
 
         $model->merchant_data = $bodyParams['merchant'] ?? null;
         $model->items_data = $bodyParams['items'] ?? null;
+        
+        // Errori
+        $model->status = $bodyParams['status'] ?? null;
+        $model->error_code = $bodyParams['error_code'] ?? null;
+        $model->message = $bodyParams['message'] ?? null;
+
 
         // get the company data
         if (isset($model->merchant_data) && isset($model->merchant_data['vat_number']) && $model->merchant_data['vat_number']) {
@@ -67,22 +72,24 @@ class CreateAction extends BaseCreateAction
                     throw new ServerErrorHttpException('Failed to create the merchant for unknown reason.');
                 }
             }
+
+            if ($model->save()) {
+                $this->handleItems($model);
+                $response = Yii::$app->getResponse();
+                $response->setStatusCode(201);
+                $id = implode(',', $model->getPrimaryKey(true));
+                $response->getHeaders()->set('Location', Url::toRoute([$this->viewAction, 'id' => $id], true));
+            } elseif (!$model->hasErrors()) {
+                throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
+            }
+
+            return $model;
+
+        } else if (isset($model->status) && $model->status == 'ERROR') {
+            \Yii::error('Error creating document: ' . $model->message . ' (Error code: ' . $model->error_code . ' - ' . $model->receipt_id . ')', 'scontrino');
         } else {
             throw new ServerErrorHttpException('Merchant VAT number is required.');
         }
-
-        // $azienda = Azienda::getAziendaByVatNumber($model->merchant_vat_number);
-        if ($model->save()) {
-            $this->handleItems($model);
-            $response = Yii::$app->getResponse();
-            $response->setStatusCode(201);
-            $id = implode(',', $model->getPrimaryKey(true));
-            $response->getHeaders()->set('Location', Url::toRoute([$this->viewAction, 'id' => $id], true));
-        } elseif (!$model->hasErrors()) {
-            throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
-        }
-
-        return $model;
     }
 
     private function handleItems($model)

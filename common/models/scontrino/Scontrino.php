@@ -25,6 +25,10 @@ class Scontrino extends \yii\db\ActiveRecord
     public $merchant_data;
     public $items_data;
 
+    public $status;
+    public $message;
+    public $error_code;
+
     /**
      * {@inheritdoc}
      */

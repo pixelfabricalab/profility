@@ -9,7 +9,16 @@ return [
         'formatter' => [
             'class' => \yii\i18n\Formatter::class,
             'nullDisplay' => '',
-        ],        
+        ],
+        'log' => [
+            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'targets' => [
+                [
+                    'class' => 'yii\log\DbTarget',
+                    'levels' => ['error'],
+                ],
+            ],
+        ],
         'opts' => [
             'class' => \common\helpers\OptionsListRetriever::class,
         ],
