@@ -103,7 +103,9 @@ class Scontrino extends \yii\db\ActiveRecord
                 $scontrino_caricato = ScontrinoCaricato::findOne([
                     'sid' => $this->receipt_id,
                 ]);
-                $this->consumatore_id = $scontrino_caricato->profilo_id;
+                if ($scontrino_caricato) {
+                    $this->consumatore_id = $scontrino_caricato->profilo_id;
+                }
             }
             return true;
         }
