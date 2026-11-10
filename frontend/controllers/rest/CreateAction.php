@@ -100,7 +100,7 @@ class CreateAction extends BaseCreateAction
                 $item = new \common\models\scontrino\Riga();
                 $item->load($itemData, '');
                 $item->documento_id = $model->id;
-                if (!$item->save()) {
+                if (!$item->save(false)) {
                     throw new ServerErrorHttpException('Failed to create the item for unknown reason.');
                 }
             }
