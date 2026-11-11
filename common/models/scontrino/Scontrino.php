@@ -45,7 +45,7 @@ class Scontrino extends \yii\db\ActiveRecord
         return [
             [['receipt_id', 'merchant_id', 'issued_at', 'cash_register_serial', 'total_amount', 'currency'], 'default', 'value' => null],
             [['merchant_id'], 'integer'],
-            [['issued_at', 'merchant_data', 'items_data'], 'safe'],
+            [['issued_at', 'merchant_data', 'items_data', 'document_number'], 'safe'],
             [['total_amount'], 'number'],
             [['receipt_id'], 'string', 'max' => 36],
             [['cash_register_serial'], 'string', 'max' => 64],
