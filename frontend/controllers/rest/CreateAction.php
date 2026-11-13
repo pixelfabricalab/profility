@@ -47,6 +47,8 @@ class CreateAction extends BaseCreateAction
         // Issued at
         $model->issued_at = $bodyParams['issued_at'] ?? null;
 
+        $model->document_number = $bodyParams['document_number'] ?? null;
+
         $model->merchant_data = $bodyParams['merchant'] ?? null;
         $model->items_data = $bodyParams['items'] ?? null;
         
